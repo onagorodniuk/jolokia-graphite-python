@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import argparse
 import json
 import re
@@ -66,7 +67,7 @@ def threads_count(READ_URL):
 #        heap_usage.used = heap_data['value']['used']
 
 def send_msg(message):
-    print 'sending message:\n%s' % message
+#    print 'sending message:\n%s' % message
     sock = socket.socket()
     sock.connect((args.graphite, GRAPHITE_PORT))
     sock.sendall(message)
