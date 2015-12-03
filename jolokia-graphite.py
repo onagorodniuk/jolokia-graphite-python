@@ -18,6 +18,7 @@ parser.add_argument('-t','--threadscount',help='java.lang:type=Threading', requi
 parser.add_argument('-f','--graphite',help='graphite.dev-i.net, carbon port hardcoded inside script', required=True)
 parser.add_argument('-p','--prefix',help='server group prefix (project)', required=True)
 parser.add_argument('-j','--jolokiaurl',help='jolokia url, default value http://localhost:8080/jolokia', required=False)
+parser.add_argument('-v','--verbose', action="count", help='print outgoing mesaages to stdout', required=False)
 args = parser.parse_args()
 
 if args.jolokiaurl != None:
@@ -67,7 +68,8 @@ def threads_count(READ_URL):
 #        heap_usage.used = heap_data['value']['used']
 
 def send_msg(message):
-#    print 'sending message:\n%s' % message
+    if args.verbose:
+            print 'sending message:\n%s' % message
     sock = socket.socket()
     sock.connect((args.graphite, GRAPHITE_PORT))
     sock.sendall(message)
