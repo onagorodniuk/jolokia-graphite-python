@@ -67,7 +67,7 @@ def threads_count(READ_URL):
 #        heap_usage.used = heap_data['value']['used']
 
 def send_msg(message):
-#    print 'sending message:\n%s' % message
+    print 'sending message:\n%s' % message
     sock = socket.socket()
     sock.connect((args.graphite, GRAPHITE_PORT))
     sock.sendall(message)
@@ -88,29 +88,38 @@ else:
 
 if args.gcyounggen != None:
         message = ''
-        gc_young_gen(READ_URL)
-        lines = [
+        try:
+                gc_young_gen(READ_URL)
+                lines = [
                 '%s.%s.jmx.java.lang.name_G1_Young_Generation.type_GarbageCollector.LastGcInfo.duration %s %d' % (args.prefix, node, gc_young_gen.duration, timestamp)]
-        message = '\n'.join(lines) + '\n'
-        send_msg(message)
+                message = '\n'.join(lines) + '\n'
+                send_msg(message)
+        except:
+                pass
 else:
         print 'GC Young Gen Mbean not defined'
 if args.gcoldgen != None:
-        message = ''
-        gc_old_gen(READ_URL)
-        lines = [
+        try:
+                message = ''
+                gc_old_gen(READ_URL)
+                lines = [
                 '%s.%s.jmx.java.lang.name_G1_Old_Generation.type_GarbageCollector.LastGcInfo.duration %s %d' % (args.prefix, node, gc_old_gen.duration, timestamp)]
-        message = '\n'.join(lines) + '\n'
-        send_msg(message)
+                message = '\n'.join(lines) + '\n'
+                send_msg(message)
+        except:
+                pass
 else:
         print 'GC Old Gen Mbean not defined'
 
 if args.threadscount != None:
-        message = ''
-        threads_count(READ_URL)
-        lines = [
+        try:
+                message = ''
+                threads_count(READ_URL)
+                lines = [
                 '%s.%s.jmx.java.lang.type_Threading.ThreadCount %s %d' % (args.prefix, node, threads_count.count, timestamp)]
-        message = '\n'.join(lines) + '\n'
-        send_msg(message)
+                message = '\n'.join(lines) + '\n'
+                send_msg(message)
+        except:
+                pass
 else:
         print 'Threading Mdean not defined'
