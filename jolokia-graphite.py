@@ -27,7 +27,9 @@ else:
         BASE_URL = "http://localhost:8080/jolokia"
 ###DEFINE STANDART VALUES
 #short hostname
-node = platform.node().replace('.', '-')
+node = platform.node()
+node = re.match(r"[a-zA-Z0-9\-]*", node)
+node = node.group(0)
 timestamp = int(time.time())
 args.memory = 'java.lang:type=Memory/HeapMemoryUsage'
 #args.gcyounggen = 'java.lang:name=G1 Young Generation,type=GarbageCollector'
