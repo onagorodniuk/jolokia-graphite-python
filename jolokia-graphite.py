@@ -73,6 +73,7 @@ def send_msg(message):
     if args.verbose:
             print 'sending message:\n%s' % message
     sock = socket.socket()
+    sock.settimeout(2)
     sock.connect((args.graphite, GRAPHITE_PORT))
     sock.sendall(message)
     sock.close()
