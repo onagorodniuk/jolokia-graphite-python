@@ -41,21 +41,21 @@ READ_URL = BASE_URL + "/?ignoreErrors=true&p=read/%s"
 
 def heap_usage(READ_URL):
         url =  READ_URL % urllib.quote(args.memory)
-        heap_data = json.load(urllib2.urlopen(url))
+        heap_data = json.load(urllib2.urlopen(url, timeout=5))
         heap_usage.max =  heap_data['value']['max']
         heap_usage.used = heap_data['value']['used']
 #hi()
 #print hi.bye
 def gc_young_gen(READ_URL):
         url =  READ_URL % urllib.quote(args.gcyounggen)
-        gc_data = json.load(urllib2.urlopen(url))
+        gc_data = json.load(urllib2.urlopen(url, timeout=5))
 #        print gc_data
         gc_young_gen.duration =  gc_data['value']['LastGcInfo']['duration']
 #        heap_usage.used = heap_data['value']['used']
 
 def gc_old_gen(READ_URL):
         url =  READ_URL % urllib.quote(args.gcoldgen)
-        gc_data = json.load(urllib2.urlopen(url))
+        gc_data = json.load(urllib2.urlopen(url, timeout=5))
 #        print gc_data
         gc_old_gen.duration =  gc_data['value']['LastGcInfo']['duration']
 #        heap_usage.used = heap_data['value']['used']
@@ -64,7 +64,7 @@ def gc_old_gen(READ_URL):
 
 def threads_count(READ_URL):
         url =  READ_URL % urllib.quote(args.threadscount)
-        threads_data = json.load(urllib2.urlopen(url))
+        threads_data = json.load(urllib2.urlopen(url, timeout=5))
 #        print gc_data
         threads_count.count =  threads_data['value']['ThreadCount']
 #        heap_usage.used = heap_data['value']['used']
