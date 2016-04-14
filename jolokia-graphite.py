@@ -23,14 +23,14 @@ gcyounggen=java.lang:name=G1 Young Generation,type=GarbageCollector \
 gcoldgen=java.lang:name=G1 Old Generation,type=GarbageCollector \
 threadscount=java.lang:type=Threading \
 graphite=graphite.dev-i.net \
-prefix=e88 \
+prefix=test \
 jolokiaurl=http://localhost:8080/jolokia \
 verbose=False', required=True)
 
 args = parser.parse_args()
 
 config = ConfigParser.ConfigParser()
-config.read('/root/bin/jolokia-graphite.conf')
+config.read(args.config)
 memory = config.get('main', 'memory')
 gcyounggen = config.get('main', 'gcyounggen')
 gcoldgen = config.get('main', 'gcoldgen')
