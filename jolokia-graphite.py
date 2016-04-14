@@ -15,7 +15,18 @@ import ConfigParser
 
 #__author__ = 'onagorodniuk'
 parser = argparse.ArgumentParser(description='This is a demo script by nixCraft.')
-parser.add_argument('-c','--config',help='located /root/bin/jolokia-graphite.conf', required=True)
+parser.add_argument('-c','--config',help='located /root/bin/jolokia-graphite.conf \
+SAMPLE:\
+[main] \
+memory=java.lang:type=Memory/HeapMemoryUsage \
+gcyounggen=java.lang:name=G1 Young Generation,type=GarbageCollector \
+gcoldgen=java.lang:name=G1 Old Generation,type=GarbageCollector \
+threadscount=java.lang:type=Threading \
+graphite=graphite.dev-i.net \
+prefix=e88 \
+jolokiaurl=http://localhost:8080/jolokia \
+verbose=False', required=True)
+
 args = parser.parse_args()
 
 config = ConfigParser.ConfigParser()
